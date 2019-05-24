@@ -25,7 +25,13 @@ public class Cache {
         }else{
             subs = 'r';
         }
-
     }
 
+    //acessa o byte a partir de um endereço
+    void acessarByte(int end){
+        int indice = (end / bsize) % nset;
+        int tag = end/bsize/nset;
+
+
+    }
 }
