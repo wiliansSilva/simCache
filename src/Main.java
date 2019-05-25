@@ -1,42 +1,51 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 public class Main {
 
     static Cache cache;
+    static String data[];
+    static int i = 0;
     public static void main(String[] args) {
         entrada(args);
+        acessos();
     }
 
     public static void entrada(String[] args){
-        //Verifica se a entrada contem algum argumento
-        if(args.length == 0){
-            System.out.println("Entrada inválida, por favor forneça os argumentos");
-        }
 
-        //O unico argumento entrado sera o arquivo de entrada
-        if(args.length == 1){
-            cache = new Cache();
-        }
-        //configuração inteira da cache
-        if(args.length == 2){
-            cache = new Cache(args[0]);
-        }
+            try{
+                //Verifica se a entrada contem algum argumento
+                if(args.length == 0){
+                    System.out.println("Entrada inválida, por favor forneça os argumentos");
+                }
 
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("./arqTexto1.txt"));
-            while(br.ready()){
-                Conjuntos conjuntos = new Conjuntos(br.readLine());
-                conjuntos.aloca();
+                //case tenha apenas um argunto, ele sera o arquivo de entrada
+                if(args.length == 1){
+                    File file = new File(args[0]);
+                    FileReader fr = new FileReader(file);
+                    BufferedReader br = new BufferedReader(fr);
+                    data = new String[200];
+                    while(br.ready()){
+                        data[i] = br.readLine();
+                        i++;
+                    }
+                    cache = new Cache(args[0]);
+                }
+
+                //configuração inteira da cache com arquivo de entrada
+                if(args.length == 2){
+                    cache = new Cache(args[0]);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        //cache = new Cache();
+    }
+
+    public static void acessos(){
 
     }
 }
