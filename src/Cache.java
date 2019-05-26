@@ -1,10 +1,12 @@
+import java.lang.Math; 
+
 public class Cache {
 
     private int nset;
     private int bsize;
     private int assoc;
     private char subs;
-    Conjuntos conjuntos;
+    Conjuntos[] conjuntos;
 
     public Cache(){
         nset = 256;
@@ -27,11 +29,37 @@ public class Cache {
         }
     }
 
+    Conjuntos novoConjunto(){
+        switch (subs){
+            default:
+            case 'r':
+                return null;
+            case 'l':
+                return null;
+            case 'f':
+                return null;
+        }
+    }
+
+    //Calculando log na base 2
+    public static final int log2(float f)
+    {
+        return (int)Math.floor(Math.log(f)/Math.log(2.0));
+    }
+    
     //acessa o byte a partir de um endereço
     void acessarByte(int end){
-        int indice = (end / bsize) % nset;
-        int tag = end/bsize/nset;
+        int indice = end % nset;
+        int tamanhoDaCache = nsets * bsize;
+        int indiceTamanho = log2(tamanhoDaCache)
+        //supondo processador 64bits
+        int tamanhoTag = (64 - indiceTamanho) * tamanhoDaCache;	
+        int tag = Math.round(end/(10*tamanhoTag));
 
+        conjuntos = new Conjuntos[200];
 
+        if(conjuntos[indice] == null){
+            conjuntos[indice] = novoConjunto();
+        }
     }
 }
