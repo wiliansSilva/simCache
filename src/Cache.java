@@ -4,7 +4,7 @@ public class Cache {
     private int bsize;
     private int assoc;
     private char subs;
-    Conjuntos conjuntos;
+    Conjuntos[] conjuntos;
 
     public Cache(){
         nset = 256;
@@ -27,11 +27,27 @@ public class Cache {
         }
     }
 
+    Conjuntos novoConjunto(){
+        switch (subs){
+            default:
+            case 'r':
+                return null;
+            case 'l':
+                return null;
+            case 'f':
+                return null;
+        }
+    }
+
     //acessa o byte a partir de um endereço
     void acessarByte(int end){
-        int indice = (end / bsize) % nset;
-        int tag = end/bsize/nset;
+        int indice = end % nset;
+        String tag = Integer.toString(end,2);
 
+        conjuntos = new Conjuntos[200];
 
+        if(conjuntos[indice] == null){
+            conjuntos[indice] = novoConjunto();
+        }
     }
 }
